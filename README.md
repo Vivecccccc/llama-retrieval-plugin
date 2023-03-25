@@ -11,6 +11,9 @@ For a full introduction to the structure of this repository, check the [ChatGPTR
 ## Table of Contents
 
 - [Quickstart](#quickstart)
+  - [Setting up plugin server](#setting-up-plugin-server)
+  - [Setup LLaMA.cpp](#setup-llama-cpp)
+  - [Incorporate retrieval plugin into llama](#incorporate-retrieval-plugin-into-llama)
 - [About](#about)
   - [Plugins](#plugins)
   - [Retrieval Plugin](#retrieval-plugin)
@@ -90,7 +93,7 @@ python3 quantize.py 7B
 
 Note that you will need to obtain the LLaMA model weights and place them in the `./models` folder. Refer to [Facebook's LLaMA repository](https://github.com/facebookresearch/llama/pull/73/files) if you need to request access to the model data.
 
-### Incorporate retrival plugin into llama
+### Incorporate retrieval plugin into llama
 
 Go back to the root of this project's folder:
 ```
@@ -155,7 +158,7 @@ We are looking to collaborate with others in helping define how LLM plugins can 
 
 ## Contributors
 
-OpenAI & the entire ChatGPT plugins team along with everyone in the repo this was [forked from](https://github.com/openai/chatgpt-retrieval-plugin#contributors).
+We want to thank OpenAI & the entire ChatGPT plugins team along with everyone in the repo this was [forked from](https://github.com/openai/chatgpt-retrieval-plugin#contributors). Also want to thank the [Llama.cpp](https://github.com/ggerganov/llama.cpp) and the [LLaMA LLM](https://github.com/facebookresearch/llama) model from Facebook.
 
 - [saqadri](https://github.com/saqadri) 
 - [Flux159](http://github.com/Flux159)
