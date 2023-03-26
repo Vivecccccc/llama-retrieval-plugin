@@ -51,7 +51,7 @@ def get_context(prompt: str) -> List[str]:
     return context
 
 def generate_retrieval_prompt(prompt: str, context_array: List[str], token_limit: int) -> str:
-    prompt_template=f"""Use the following context to answer the question below. You are not allowed to answer anything outside of the specified context.
+    prompt_template=f"""Answer the question based on the context below.
 
 Context:
 <context>
@@ -77,35 +77,35 @@ def invoke_llama_with_context(prompt: str, token_limit: int) -> None:
     context_array = get_context(prompt)
     full_prompt = generate_retrieval_prompt(prompt, context_array, token_limit)
 
-    with tempfile.NamedTemporaryFile(mode='w', delete=True) as prompt_file:
+    prompt_file_path = ""
+    with tempfile.NamedTemporaryFile(mode='w', delete=False) as prompt_file:
         # Write the prompt to the file
         prompt_file.write(full_prompt)
         prompt_file_path = prompt_file.name
         
-        llama_cwd = os.environ.get("LLAMA_WORKING_DIRECTORY")
+    llama_cwd = os.environ.get("LLAMA_WORKING_DIRECTORY", "./llama.cpp")
+    llama_cmd = os.environ.get("LLAMA_CMD", f"./main -m ./models/7B/ggml-model-q4_0.bin")
 
-        llama_cmd = os.environ.get("LLAMA_CMD", f"./main -m ./models/7B/ggml-model-q4_0.bin")
+    # Call LLaMa with streaming responses
+    process = subprocess.Popen(f"{llama_cmd} -f {prompt_file_path}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=llama_cwd)
 
-        # Call LLaMa with streaming responses
-        process = subprocess.Popen(f"{llama_cmd} -f {prompt_file_path}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, cwd=llama_cwd)
+    while True:
+        # Read data from stdout and stderr streams
+        stdout_data = process.stdout.readline()
+        stderr_data = process.stderr.readline()
 
-        while True:
-            # Read data from stdout and stderr streams
-            stdout_data = process.stdout.readline()
-            stderr_data = process.stderr.readline()
+        # Check for end of stream
+        if (not stdout_data) and (not stderr_data):
+            break
 
-            # Check for end of stream
-            if (not stdout_data) and (not stderr_data):
-                break
+        # Display the output
+        if stdout_data:
+            print(stdout_data.decode().strip())
+        #if stderr_data:
+            #print("STDERR: " + stderr_data.decode().strip())
 
-            # Display the output
-            if stdout_data:
-                print(stdout_data.decode().strip())
-            #if stderr_data:
-                #print("STDERR: " + stderr_data.decode().strip())
-
-        # Wait for the process to exit
-        process.wait()
+    # Wait for the process to exit
+    process.wait()
 
 
 #prompt = "How do I activate Conda for my project?"
