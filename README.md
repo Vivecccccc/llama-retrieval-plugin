@@ -14,7 +14,7 @@ For a full introduction to the structure of this repository, check the [ChatGPTR
 
 - [Quickstart](#quickstart)
   - [Setting up plugin server](#setting-up-plugin-server)
-  - [Setup LLaMA.cpp](#setup-llama-cpp)
+  - [Setup LLaMA.cpp](#setup-llamacpp)
   - [Incorporate retrieval plugin into llama](#incorporate-retrieval-plugin-into-llama)
 - [About](#about)
   - [Plugins](#plugins)
@@ -147,7 +147,7 @@ A notable feature of the Retrieval Plugin is its capacity to provide ChatGPT wit
 
 ## Limitations
 
-Including all the limitations of the [ChatGPT plugin](https://github.com/lastmile-ai/llama-retrieval-plugin/blob/main/ChatGPTREADME.md#limitations), using llama as the LLM for a plugin has some additional limitations since it has not been trained to parse openapi specs [like ChatGPT has]().
+Including all the limitations of the [ChatGPT plugin](https://github.com/lastmile-ai/llama-retrieval-plugin/blob/main/ChatGPTREADME.md#limitations), using llama as the LLM for a plugin has some additional limitations since it has not been trained to parse openapi specs [like ChatGPT has](https://platform.openai.com/docs/plugins/introduction).
 
 - **Openapi schema parsing**: Instead of parsing the openapi schema, the llama_with_retrieval.py simply expects a `/query` endpoint to retrieve additional context to ground the LLM.
 - **Performance**: LLaMA has multiple model sizes and utilizing the 7B model is better for speed, however may be worse for prompt responses than the 65B model. Both will generally perform worse than gpt-turbo-3.5 or gpt-4 models.
