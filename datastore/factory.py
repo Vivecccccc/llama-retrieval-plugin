@@ -32,4 +32,6 @@ async def get_datastore() -> DataStore:
 
             return QdrantDataStore()
         case _:
-            raise ValueError(f"Unsupported vector database: {datastore}")
+            from datastore.providers.local_datastore import LocalDataStore
+            
+            return LocalDataStore(storage_path='storage')
