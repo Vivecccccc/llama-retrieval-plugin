@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+openai
+pydantic
+tenacity
+tiktoken
+numpy
+docx2txt
+PyPDF2
+python-pptx
+arrow
+redis
+requests

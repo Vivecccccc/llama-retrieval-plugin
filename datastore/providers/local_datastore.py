@@ -33,8 +33,7 @@ class LocalDataStore(DataStore):
                     os.remove(file_path)
                 return True
             except Exception as e:
-                print(e)
-                return False
+                raise(e)
 
         # Delete by filter
         if filter:
@@ -44,8 +43,7 @@ class LocalDataStore(DataStore):
                     os.remove(file_path)
                     return True
                 except Exception as e:
-                    print(e)
-                    return False
+                    raise(e)
 
         # Delete by explicit ids
         if ids:
@@ -55,8 +53,7 @@ class LocalDataStore(DataStore):
                     os.remove(file_path)
                 return True
             except Exception as e:
-                print(e)
-                return False
+                raise(e)
 
         # If no ids or filter specified, raise exception
         raise ValueError("No filter or ids specified for delete operation")
